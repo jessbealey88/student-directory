@@ -81,9 +81,7 @@ end
 def input_students
   puts "Please enter the names of the students"
   puts "To finish, just hit return twice"
-
   name = STDIN.gets.chomp
-
   while !name.empty? do
     puts "What cohort are they in? (month)"
     cohort = STDIN.gets.chomp
@@ -96,7 +94,6 @@ end
 def push_to_student_list(name, cohort)
 @students << {name: name, cohort: cohort.to_sym}
 end
-
 
 def try_load_students
   filename = ARGV.first
