@@ -22,7 +22,6 @@ def process(selection)
       feedback_message
     when "2"
       show_students
-      feedback_message
     when "3"
       save_students
       feedback_message
@@ -62,22 +61,22 @@ def print_student_list
 end
 
 def save_students
-  file = File.open("students.csv", "w")
-  @students.each do |student|
-    student_data = [student[:name], student[:cohort]]
-    csv_line = student_data.join(",")
-    file.puts csv_line
+  File.open("students.csv", "w") do |file|
+    @students.each do |student|
+      student_data = [student[:name], student[:cohort]]
+      csv_line = student_data.join(",")
+      file.puts csv_line
+    end
   end
-  file.close
 end
 
 def load_students(filename = "students.csv")
-  file = File.open(filename, "r")
-  file.readlines.each do |line|
-  name, cohort = line.chomp.split(',')
-  push_to_student_list(name, cohort)
+  File.open(filename, "r") do |file|
+    file.each do |line|
+      name, cohort = line.chomp.split(',')
+      push_to_student_list(name, cohort)
+    end
   end
-  file.close
 end
  
 def input_students
@@ -95,7 +94,7 @@ def input_students
   end
 end
 
-def push_to_student_list(name, cohort = november)
+def push_to_student_list(name, cohort)
 @students << {name: name, cohort: cohort.to_sym}
 end
 
